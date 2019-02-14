@@ -209,7 +209,7 @@ function generateHeartShapeGeometry()
 	return geom;
 }
 
-function createParticlesCloud(systemRandom, size, transparent, opacity, vertexColors, sizeAttenuation, color,particesVertices, pVelocities)
+function createParticlesCloud(systemRandom, size, transparent, opacity, vertexColors, sizeAttenuation, color)
 {
 	var geom 		= new THREE.Geometry();
 	var material 	= new THREE.PointCloudMaterial({size: size, transparent: transparent, 
@@ -225,10 +225,7 @@ function createParticlesCloud(systemRandom, size, transparent, opacity, vertexCo
         particle.velocityX = (systemRandom() - 0.5) / 3;
         particle.velocityZ = (systemRandom() - 0.5) / 3;
 		
-		pVelocities.push(new THREE.Vector3( (systemRandom() - 0.5) / 3, 0.1 + systemRandom() / 5, (systemRandom() - 0.5) / 3 ));
-		
 		geom.vertices.push(particle);
-		particesVertices.push(particesVertices);
 		
 		var color = new THREE.Color(0x00ff00);
 		color.setHSL(color.getHSL().h, color.getHSL().s, systemRandom() * color.getHSL().l);
@@ -237,6 +234,7 @@ function createParticlesCloud(systemRandom, size, transparent, opacity, vertexCo
 	}
 	
 	var cloud = new THREE.PointCloud(geom, material);
+	cloud.sortParticles = true;
 	
 	return cloud;
 	
