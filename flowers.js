@@ -179,3 +179,14 @@ function getUrlParam(parameter, defaultvalue)
     return urlparameter;
 }
 
+function generateRandomString()
+{
+	var randText = "";
+	var possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	for (var i = 0; i < 25; i++)
+    randText += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+
+	return randText;
+}
+

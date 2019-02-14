@@ -80,20 +80,7 @@
 			
 			var gui;
 			
-			if( (getUrlVars()["x"] == null || getUrlVars()["y"] == null) )
-			{
-				gui = new dat.GUI({ autoplace: false, width: 450 });
-				gui.add(nameControl, 'name1').name("Enter name of Person 1");
-				gui.add(nameControl, 'name2').name("Enter name of Person 2");
-			}
-			else
-			{
-				nameControl.name1 = getUrlVars()["x"];
-				nameControl.name2 = getUrlVars()["y"];
-				
-				document.getElementById("urlresult").innerHTML = "Dear "+nameControl.name2 +", "+ nameControl.name1 + " has sent you a flower!";
-				document.getElementById("reveal2").innerHTML = "<a href='https://hellomichaelloke.github.io/alien-flower-gen/'>Click here to create a new flower!</a>";
-			}
+			
 			
 			
 			
@@ -113,10 +100,10 @@
 			function SeedRNG(ignoreName)
 			{
 				<!-- Seed PRNG -->
-				if(!ignoreName)
-					Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
-				else
-					Math.random = systemRNG;
+				//if(!ignoreName)
+				Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
+				//else
+					//Math.random = systemRNG;
 				<!-- Seed noise -->
 				var genSeed = Math.random();
 				noise.seed(genSeed);
@@ -124,7 +111,28 @@
 				rngControls.x = 235 + Math.random() * (1348);
 				rngControls.y = 114 + Math.random() * (891);
 			}
-			SeedRNG(false);
+			
+			
+			if( (getUrlVars()["x"] == null || getUrlVars()["y"] == null) )
+			{
+				gui = new dat.GUI({ autoplace: false, width: 450 });
+				nameControl.name1 = generateRandomString();
+				nameControl.name2 = generateRandomString();
+				
+				gui.add(nameControl, 'name1').name("Enter name of Person 1");
+				gui.add(nameControl, 'name2').name("Enter name of Person 2");
+			}
+			else
+			{
+				nameControl.name1 = getUrlVars()["x"];
+				nameControl.name2 = getUrlVars()["y"];
+				
+				document.getElementById("urlresult").innerHTML = "Dear "+nameControl.name2 +", "+ nameControl.name1 + " has sent you a flower!";
+				document.getElementById("reveal2").innerHTML = "<a href='https://hellomichaelloke.github.io/alien-flower-gen/'>Click here to create a new flower!</a>";
+			}
+			
+			SeedRNG(true);
+			
 
 			<!-- setup the scene, camera and the renderer -->
 			var scene 		 	= new THREE.Scene();
