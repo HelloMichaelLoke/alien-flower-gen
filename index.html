@@ -165,6 +165,9 @@
 			var spotlight;
 			var plane;
 			var flowerGroup;
+			var particleCloud;
+			var particesVertices = [];
+			var particleVelocities = [];
 			
 			function genPlant()
 			{
@@ -276,6 +279,11 @@
 				
 				scene.add(flowerGroup);
 				
+				//add particle box
+				var vertexPointColors = false;
+				var particleColors = 0xc964e0;
+				particleCloud = createParticlesCloud(systemRNG,4, true, 0.6, vertexPointColors, true,particleColors, particesVertices, particleVelocities);
+				scene.add(particleCloud);
 				
 				<!-- setting up the camera -->
 				camera.position.x = -30;
@@ -294,6 +302,25 @@
 			<!-- update loop -->
 			function update()
 			{
+				
+				/*
+				for(var i = 0; i < particesVertices.length; ++i)
+				{
+					var v = particesVertices[i];
+					var p = particleVelocities[i]
+					v.y = v.y - (p.y);
+                    v.x = v.x - (p.x);
+                    v.z = v.z - (p.z);
+
+                    if (v.y <= 0) v.y = 60;
+                    if (v.x <= -20 || v.x >= 20) p.x = p.x * -1;
+                    if (v.z <= -20 || v.z >= 20) p.z = p.z * -1;
+					
+				}
+				console.log(v.x);
+				
+				particleCloud.geometry.verticesNeedUpdate = true;
+				*/
 				controls.update();
 				swipeControls.update();
 			}

@@ -190,3 +190,54 @@ function generateRandomString()
 	return randText;
 }
 
+//generate heart shape geom
+function generateHeartShapeGeometry()
+{
+	var x = 0, y = 0;
+
+	var heartShape = new THREE.Shape();
+
+	heartShape.moveTo( x + 5, y + 5 );
+	heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+	heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+	heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+	heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+	heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+	heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+		
+	var geom = new THREE.ShapeGeometry( heartShape );
+	return geom;
+}
+
+function createParticlesCloud(systemRandom, size, transparent, opacity, vertexColors, sizeAttenuation, color,particesVertices, pVelocities)
+{
+	var geom 		= new THREE.Geometry();
+	var material 	= new THREE.PointCloudMaterial({size: size, transparent: transparent, 
+													opacity: opacity, vertexColors: vertexColors, 
+													sizeAttenuation: sizeAttenuation, color: color}
+												  );
+	var range = 500;
+	for (var i = 0; i < 15000; i++) 
+	{
+		var particle = new THREE.Vector3(systemRandom() * range - range / 2, systemRandom() * range - range / 2, systemRandom() * range - range / 2);
+		
+		particle.velocityY = 0.1 + systemRandom() / 5;
+        particle.velocityX = (systemRandom() - 0.5) / 3;
+        particle.velocityZ = (systemRandom() - 0.5) / 3;
+		
+		pVelocities.push(new THREE.Vector3( (systemRandom() - 0.5) / 3, 0.1 + systemRandom() / 5, (systemRandom() - 0.5) / 3 ));
+		
+		geom.vertices.push(particle);
+		particesVertices.push(particesVertices);
+		
+		var color = new THREE.Color(0x00ff00);
+		color.setHSL(color.getHSL().h, color.getHSL().s, systemRandom() * color.getHSL().l);
+		
+		geom.colors.push(color);
+	}
+	
+	var cloud = new THREE.PointCloud(geom, material);
+	
+	return cloud;
+	
+}
