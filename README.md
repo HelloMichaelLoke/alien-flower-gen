@@ -5,7 +5,10 @@ WeblGL threejs Experiment on Procedurally Generated Flowers using Simplex Noise
 - Did this in less than a few hours (over spare time)
 
 
+Live demo here: https://hellomichaelloke.github.io/alien-flower-gen/
 
-TODO (maybe in future)
- - Better PRNG
- - Fix the god awful ui...
+TODO (maybe in future if I got the time)
+ - Better Procedural generation
+ - A better UI (which is non-existent right now)
+ - Physics =p..
+ - Maybe optimize for mobile devices...
