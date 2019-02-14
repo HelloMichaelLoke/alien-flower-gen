@@ -184,7 +184,7 @@ function generateRandomString()
 	var randText = "";
 	var possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-	for (var i = 0; i < 25; i++)
+	for (var i = 0; i < 15; i++)
     randText += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
 
 	return randText;

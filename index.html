@@ -3,7 +3,7 @@
 <html>
 	
 	<head>
-		<title> Procedurally Generated Alien Flowers </title>
+		<title> Oh a unique flower generator </title>
 		<script src="js/three.js"></script>
 		<script src="libs/perlinnoise.js"></script>
 		<script src="libs/OrbitControls.js"></script>
@@ -66,6 +66,10 @@
 		
 		<script>
 			
+			var bloomRes 		= 256;
+			var shadowMapRes 	= 2048;
+			var shadowMapType 	= THREE.PCFSoftShadowMap;
+			
 			var nameControl = new function()
 			{
 				this.name1 = "Ah Lian Kia";
@@ -80,31 +84,15 @@
 			
 			var gui;
 			
-			
-			
-			
-			
 			//save the old random
 			var systemRNG = Math.random;
 			
-			/*
-			var name1 = getUrlParam('x', "EMPTY");
-			var name2 = getUrlParam('y', "EMPTY");
 			
-			console.log(name1 +","+name2);
-			
-			var pathname = window.location.pathname;
-			console.log(pathname);
-			*/
-			
-			function SeedRNG(ignoreName)
+			function SeedRNG()
 			{
 				<!-- Seed PRNG -->
-				//if(!ignoreName)
 				Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
-				//else
-					//Math.random = systemRNG;
-				<!-- Seed noise -->
+
 				var genSeed = Math.random();
 				noise.seed(genSeed);
 			
@@ -116,11 +104,11 @@
 			if( (getUrlVars()["x"] == null || getUrlVars()["y"] == null) )
 			{
 				gui = new dat.GUI({ autoplace: false, width: 450 });
-				nameControl.name1 = generateRandomString();
-				nameControl.name2 = generateRandomString();
+				nameControl.name1 = "placeholder_"+generateRandomString();
+				nameControl.name2 = "placeholder_"+generateRandomString();
 				
-				gui.add(nameControl, 'name1').name("Enter name of Person 1");
-				gui.add(nameControl, 'name2').name("Enter name of Person 2");
+				gui.add(nameControl, 'name1').name("Enter your name");
+				gui.add(nameControl, 'name2').name("Enter the person's name");
 			}
 			else
 			{
@@ -131,7 +119,7 @@
 				document.getElementById("reveal2").innerHTML = "<a href='https://hellomichaelloke.github.io/alien-flower-gen/'>Click here to create a new flower!</a>";
 			}
 			
-			SeedRNG(true);
+			SeedRNG();
 			
 
 			<!-- setup the scene, camera and the renderer -->
@@ -148,7 +136,7 @@
 			var effectCopy  = new THREE.ShaderPass(THREE.CopyShader);
 			effectCopy.renderToScreen = true;
 			
-			var bloomPass	= new THREE.BloomPass(1,15,10, 1024);
+			var bloomPass	= new THREE.BloomPass(1,15,10, bloomRes);
 			bloomPass.renderScene = true;
 			
 			var fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
@@ -168,7 +156,6 @@
 			<!-- controls -->
 			var controls = new THREE.OrbitControls(camera,renderer.domElement);
 			
-			<!-- fps tracker -->
 			var spotlight;
 			var plane;
 			var flowerGroup;
@@ -186,21 +173,16 @@
 			
 			function onGenerateClick(getUrl)
 			{
-				SeedRNG(false);
+				SeedRNG();
 				genPlant();
-				
-			}
-			
-			function revealMe()
-			{
 				
 			}
 			
 			function onGenerateURL()
 			{
 				var pathname = "https://hellomichaelloke.github.io/alien-flower-gen/" +"?x="+nameControl.name1+"&y="+nameControl.name2;
-				document.getElementById("urlresult").setAttribute("align","center");
 				document.getElementById("urlresult").innerHTML = pathname;
+				document.getElementById("reveal2").innerHTML = "Share this flower with the above link";
 			}
 			
 			if(gui != null)
@@ -210,8 +192,6 @@
 				gui.add(genClickObj,'add').name("CLICK HERE TO GENERATE");
 				gui.add(genUrlObj,'add').name("GET URL HERE");
 			}
-			
-
 			
 			renderer.setClearColor(0xffffff);
 		    renderer.setSize(window.innerWidth, window.innerHeight);
@@ -262,8 +242,8 @@
 				//add lights
 				spotLight = new THREE.SpotLight( 0xffffff );
 				spotLight.position.set( -40, 80, -10 );
-				spotLight.shadowMapWidth = 2048;
-				spotLight.shadowMapHeight = 2048;
+				spotLight.shadowMapWidth = shadowMapRes;
+				spotLight.shadowMapHeight = shadowMapRes;
 				spotLight.castShadow = true;
 				spotLight.shadowDarkness = 1;
 				scene.add( spotLight );
