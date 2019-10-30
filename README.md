@@ -12,3 +12,4 @@ TODO (maybe in future if I got the time)
  - A better UI (which is non-existent right now)
  - Physics =p..
  - Maybe optimize for mobile devices...
+ - Add support for Safari =p
