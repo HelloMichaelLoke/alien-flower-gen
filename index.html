@@ -21,6 +21,10 @@
 		<script src="libs/SwipeControls.js"></script>
 		<script src="flowers.js"></script>
 		
+		<link href="https://fonts.googleapis.com/css?family=Galada|PT+Sans+Narrow&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="animate.min.css">
+
+		
 		<style>
 			body
 			{
@@ -30,28 +34,48 @@
 			
 			#urlresult 
 			{
+				font-family: 'PT Sans Narrow', sans-serif;
 				position: absolute;
-				top: 10px;
+				top: 60px;
 				width: 45%;
-				text-align: left;
+				text-align: center;
 				z-index: 100;
 				display:block;
-				left: 15px;
-				background: #ffb7b7;
+				left: 55px;
+				background: rgba(76, 175, 80, 0.0);
 				font-weight: bold;
+				animation-delay: 2s;
+			}
+			
+			#surpriseElement
+			{
+				position: absolute;
+				font-size: 150%;
+				left: 100px;
+			
+			}
+			
+			#revElement
+			{
+				position: absolute;
+				font-size: 85%;
+				left: 100px;
+				top: 50px;
+				text-align: center;
 			}
 			
 			#reveal2 
 			{
 				position: absolute;
-				top: 45px;
+				top: 95px;
 				width: 45%;
-				text-align: left;
+				text-align: center;
 				z-index: 100;
 				display:block;
-				left: 15px;
-				background: #ffb7b7;
-				font-weight: bold;
+				left: 55px;
+				background: rgba(76, 175, 80, 0.0);
+				font-family: 'PT Sans Narrow', sans-serif;
+				animation-delay: 8s;
 			}
 			
 		</style>
@@ -64,6 +88,7 @@
 		
 		<div id="urlresult"></div>
 		<div id="reveal2"></div>
+		
 		
 		<script>
 			
@@ -88,46 +113,15 @@
 			//save the old random
 			var systemRNG = Math.random;
 			
-			function GetStringHash(mystring)
-			{
-				var hash = 0;
-				var i;
-				var strLen = mystring.length;
-				
-				if(strLen == 0)
-				{
-					
-					return hash;
-				}
-
-				for(i = 0; i < strLen; ++i)
-				{
-					chr = mystring.charCodeAt(i);
-					hash = ((hash << 5) - hash) + chr;
-					hash |= 0;
-				}
-				
-				return hash;
-			}
-			
-			function GetKey(name0, name1)
-			{
-				var nameHash0 = GetStringHash(name0);
-				var nameHash1 = GetStringHash(name1);
-				
-				return (GetStringHash(name0) ^ GetStringHash(name1)) + 1223542;
-			}
-			
 			
 			function SeedRNG()
 			{
 				<!-- Seed PRNG -->
 				nameControl.name1 = nameControl.name1.replace(" ", "_");
 				nameControl.name2 = nameControl.name2.replace(" ", "_");
-
-				//Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
-				Math.random = RNG.prototype.uniform.bind(new RNG(GetKey(nameControl.name1, nameControl.name2)));
 				
+				Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
+
 				var genSeed = Math.random();
 				noise.seed(genSeed);
 			
@@ -151,8 +145,14 @@
 				nameControl.name1 = getUrlVars()["x"];
 				nameControl.name2 = getUrlVars()["y"];
 				
-				document.getElementById("urlresult").innerHTML = "Dear "+nameControl.name2 +", "+ nameControl.name1 + " has sent you a flower!";
-				document.getElementById("reveal2").innerHTML = "<a href='https://hellomichaelloke.github.io/alien-flower-gen/'>Click here to create a one and send to somebody else</a>";
+				document.getElementById("urlresult").innerHTML = "<div id='surpriseElement'>Dear "+nameControl.name2 +", "+ nameControl.name1 + " has sent you a flower!</div>";
+				//document.getElementById("urlresult").style.textAlign = "center";
+				document.getElementById("urlresult").className += "animated zoomIn delay-2s";
+				
+				var screenW = screen.width;
+				document.getElementById("urlresult").style.left = (screenW / 2);
+				
+				document.getElementById("reveal2").innerHTML = "<div id='revElement'><a href='https://hellomichaelloke.github.io/alien-flower-gen/'> <div class='animated zoomIn delay-5s'>Click here to create a one and send to somebody else</div></a></div> ";
 			}
 			
 			SeedRNG();
