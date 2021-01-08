@@ -129,7 +129,6 @@
 				rngControls.y = 114 + Math.random() * (891);
 			}
 			
-			SeedRNG();
 			
 			if( (getUrlVars()["x"] == null || getUrlVars()["y"] == null) )
 			{
@@ -156,7 +155,7 @@
 				document.getElementById("reveal2").innerHTML = "<div id='revElement'><a href='https://hellomichaelloke.github.io/alien-flower-gen/'> <div class='animated zoomIn delay-5s'>Click here to create a one and send to somebody else</div></a></div> ";
 			}
 			
-			//SeedRNG();
+			SeedRNG();
 			
 
 			<!-- setup the scene, camera and the renderer -->
