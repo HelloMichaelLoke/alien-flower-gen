@@ -209,11 +209,17 @@
 				scene.add(flowerGroup);
 			}
 			
+			function generateAPlant()
+			{
+				
+				genPlant();
+			}
+			
 			function onGenerateClick(getUrl)
 			{
-				SeedRNG();
-				genPlant();
-				
+				//SeedRNG();
+				//genPlant();
+				generateAPlant();
 			}
 			
 			function onGenerateURL()
@@ -249,6 +255,7 @@
 			//Generate a flower
 			function GenerateFlower3DObject()
 			{
+				SeedRNG();
 				var object3D = new THREE.Object3D();
 			
 				//add bulb to scene
