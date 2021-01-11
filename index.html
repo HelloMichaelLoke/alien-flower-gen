@@ -156,7 +156,10 @@
 				nameControl.name1 = getUrlVars()["x"];
 				nameControl.name2 = getUrlVars()["y"];
 				
-				document.getElementById("urlresult").innerHTML = "<div id='surpriseElement'>Dear "+nameControl.name2 +", "+ nameControl.name1 + " has sent you a flower!</div>";
+				var name0 = nameControl.name1.replace(/[\W_]+/g, " ");
+				var name1 = nameControl.name2.replace(/[\W_]+/g, " ");
+				
+				document.getElementById("urlresult").innerHTML = "<div id='surpriseElement'>Dear "+name1 +", "+ name0 + " has sent you a flower!</div>";
 				//document.getElementById("urlresult").style.textAlign = "center";
 				document.getElementById("urlresult").className += "animated zoomIn delay-2s";
 				
