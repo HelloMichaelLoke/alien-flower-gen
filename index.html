@@ -156,8 +156,8 @@
 				nameControl.name1 = getUrlVars()["x"];
 				nameControl.name2 = getUrlVars()["y"];
 				
-				var name0 = nameControl.name1.replace(/[\W_]+/g, " ");
-				var name1 = nameControl.name2.replace(/[\W_]+/g, " ");
+				var name0 = nameControl.name1.replace("_", " ");
+				var name1 = nameControl.name2.replace("_", " ");
 				
 				document.getElementById("urlresult").innerHTML = "<div id='surpriseElement'>Dear "+name1 +", "+ name0 + " has sent you a flower!</div>";
 				//document.getElementById("urlresult").style.textAlign = "center";
