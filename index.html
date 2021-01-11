@@ -113,6 +113,10 @@
 			//save the old random
 			var systemRNG = Math.random;
 			
+			function ToSortedAlpha(text)
+			{
+				return text.split('').sort().join('');
+			}
 			
 			function SeedRNG()
 			{
@@ -120,8 +124,11 @@
 				nameControl.name1 = nameControl.name1.replace(" ", "_");
 				nameControl.name2 = nameControl.name2.replace(" ", "_");
 				
-				Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
-
+				var combined3 = nameControl.name1.localeCompare(nameControl.name2) > 0 ? (nameControl.name1 + ' and ' + nameControl.name2) : (nameControl.name2 + ' and ' + nameControl.name1);
+				
+				//Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
+				Math.random = RNG.prototype.uniform.bind(new RNG(combined3));
+				
 				var genSeed = Math.random();
 				noise.seed(genSeed);
 			
