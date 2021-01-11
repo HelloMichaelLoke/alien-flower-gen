@@ -122,16 +122,16 @@ function GenerateFlowerGeometry(radius, nbMeshSeg, freq, mag, seed, color1, colo
 //Seed random colors
 function randomColor()
 {
-	return new THREE.Color('rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')');
+	return new THREE.Color('rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')');
 }
 
 //Generates total flower mesh
 function GenerateRandomFlower(radius, nbMeshSeg, nbPods, x, y, indep)
 {
-	var flowerObjects = new THREE.Object3D();
+	var flowerObjects 	= new THREE.Object3D();
 	
-	var frequencyNoise = noise.simplex2((x*100) / 100, (y*100) / 100);
-	var magNoise = noise.simplex2((x*100) / 100, (y*100) / 100);
+	var frequencyNoise 	= noise.simplex2((x*100) / 100, (y*100) / 100);
+	var magNoise 		= noise.simplex2((x*100) / 100, (y*100) / 100);
 				
 	var minFreq 		= 1.05; var maxFreq = 10;
 	var minMag 			= 0.133; var maxMag = 1;
