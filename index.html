@@ -113,9 +113,9 @@
 			//save the old random
 			var systemRNG = Math.random;
 			
-			function ToSortedAlpha(text)
+			function capFirstLetter(str) 
 			{
-				return text.split('').sort().join('');
+				return str.charAt(0).toUpperCase() + str.slice(1);
 			}
 			
 			function SeedRNG()
@@ -124,7 +124,11 @@
 				nameControl.name1 = nameControl.name1.replace(" ", "_");
 				nameControl.name2 = nameControl.name2.replace(" ", "_");
 				
-				var combined3 = nameControl.name1.localeCompare(nameControl.name2) > 0 ? (nameControl.name1 + ' and ' + nameControl.name2) : (nameControl.name2 + ' and ' + nameControl.name1);
+				var name0 = capFirstLetter(nameControl.name1.toLowerCase());
+				var name1 = capFirstLetter(nameControl.name2.toLowerCase());
+				
+				//var combined3 = nameControl.name1.localeCompare(nameControl.name2) > 0 ? (nameControl.name1 + ' and ' + nameControl.name2) : (nameControl.name2 + ' and ' + nameControl.name1);
+				var combined3 = name0.localeCompare(name1) > 0 ? (name0 + ' and ' + name1) : (name1 + ' and ' + name0);
 				
 				//Math.random = RNG.prototype.uniform.bind(new RNG(nameControl.name1 + ' and ' + nameControl.name2));
 				Math.random = RNG.prototype.uniform.bind(new RNG(combined3));
